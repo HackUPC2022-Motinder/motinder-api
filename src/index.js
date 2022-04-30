@@ -29,7 +29,12 @@ app.get('/getAllMotorbikes', (req, res) => {
     });
 });
 
-// TODO Get a random (modern or actual) bike and normal price
+// Retrieve the JSON object of a random motorbike
+app.get('/getRandomMotorbike', (req, res) => {    
+    csv().fromFile(csvFilePath).then((jsonObj)=>{
+        res.json(jsonObj[Math.floor(Math.random() * jsonObj.length)]);
+    });
+});
 
 // TODO Suma ELO. 
 app.get('/like', (req, res) => {    

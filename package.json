@@ -1,7 +1,7 @@
 {
   "name": "motinder-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for our project 'Motinder'.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
@@ -16,5 +16,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackUPC2022-Motinder/motinder-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HackUPC2022-Motinder/motinder-api/issues"
+  },
+  "homepage": "https://github.com/HackUPC2022-Motinder/motinder-api#readme"
 }

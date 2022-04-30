@@ -38,7 +38,30 @@ app.get('/getRandomMotorbike', (req, res) => {
 
 // TODO Suma ELO. 
 app.get('/like', (req, res) => {    
+    // Llega por parametro identificador moto actual
     
+    // Comprueba si existe
+        // Suma elo + 1
+        // Comprueba ronda en la que esta, longitud parametro ids
+        // Si la ronda es multiple de 10, 
+            // llamar a funcion de calculo de parametros (compute_results)
+            // Llamar funcion de calculo de dominio
+            // llamar a la funcion de calculo de conjunto con dominio
+            // ordernar el conjunto por porcentaje de beneficio
+            // Guardar el conjunto del 50% mejor en una variable local
+            // Devolver 1 entre el 50% mejor
+        // Si no esta en la ronda 
+            // Comprovar el conjunto en la variable local, si esta vacio
+                // Devolver una moto aleatoria
+            // Si no esta vacio 
+                // Si es multiple de 4
+                    // Devolver una moto aleatoria
+                // Si no
+                    // Devolver una moto del conjunto local
+
+    // Si no existe
+        // Devolver mensaje de error ("This motorcycle does not exist!")
+
 });
  
 // Iniciando el servidor

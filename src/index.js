@@ -3,7 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const csvFilePath = 'data/appraisal.csv';
 const csv = require('csvtojson');
- 
+const elo = new Map();
+
 // Configuraciones
 app.set('port', process.env.PORT || 3000);
 app.set('json spaces', 2)
@@ -12,8 +13,7 @@ app.set('json spaces', 2)
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
- 
-// Nuestro primer WS Get
+
 app.get('/', (req, res) => {    
     res.json(
         {
@@ -36,32 +36,26 @@ app.get('/getRandomMotorbike', (req, res) => {
     });
 });
 
-// TODO Suma ELO. 
-app.get('/like', (req, res) => {    
+// Adds up ELO to a given motorbike
+app.get('/addELO', (req, res) => {    
     // Llega por parametro identificador moto actual
-    
-    // Comprueba si existe
-        // Suma elo + 1
-        // Comprueba ronda en la que esta, longitud parametro ids
-        // Si la ronda es multiple de 10, 
-            // llamar a funcion de calculo de parametros (compute_results)
-            // Llamar funcion de calculo de dominio
-            // llamar a la funcion de calculo de conjunto con dominio
-            // ordernar el conjunto por porcentaje de beneficio
-            // Guardar el conjunto del 50% mejor en una variable local
-            // Devolver 1 entre el 50% mejor
-        // Si no esta en la ronda 
-            // Comprovar el conjunto en la variable local, si esta vacio
-                // Devolver una moto aleatoria
-            // Si no esta vacio 
-                // Si es multiple de 4
-                    // Devolver una moto aleatoria
-                // Si no
-                    // Devolver una moto del conjunto local
-
-    // Si no existe
-        // Devolver mensaje de error ("This motorcycle does not exist!")
-
+    var id = req.query.id;
+    csv().fromFile(csvFilePath).then((jsonObj)=>{
+        var filtered = jsonObj.filter(a => a.id == id);
+        if (filtered.length < 1) {
+            console.log("ERROR: This motorcycle does not exist!");
+            throw exception;
+        }
+        if (filtered.length > 1) {
+            console.log("ERROR: There's more than one bike with this id!");
+            throw exception;
+        }
+        if (isNaN(elo.get(filtered[0].id)))
+            elo.set(filtered[0].id, 1);
+        else
+            elo.set(filtered[0].id, elo.get(filtered[0].id) + 1);
+        console.log(elo);
+    });
 });
  
 // Iniciando el servidor

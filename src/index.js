@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const csvFilePath = 'data/appraisal.csv';
+const csv = require('csvtojson');
  
 // Configuraciones
 app.set('port', process.env.PORT || 3000);
@@ -20,10 +22,14 @@ app.get('/', (req, res) => {
     );
 });
 
-// TODO Get a random (modern or actual) bike and normal price
-app.get('/getFirstImage', (req, res) => {    
-    
+// Retrieve a JSON object with all motorbikes
+app.get('/getAllMotorbikes', (req, res) => {    
+    csv().fromFile(csvFilePath).then((jsonObj)=>{
+        res.json(jsonObj);
+    });
 });
+
+// TODO Get a random (modern or actual) bike and normal price
 
 // TODO Suma ELO. 
 app.get('/like', (req, res) => {    

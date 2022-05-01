@@ -11,3 +11,5 @@ npm init -y
 ```console
 npm start
 ```
+or try live at:
+https://motinder-api.herokuapp.com
